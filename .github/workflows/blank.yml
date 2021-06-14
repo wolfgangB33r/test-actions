@@ -29,16 +29,16 @@ jobs:
           token: '${{ secrets.DT_TOKEN }}'
           events: |
             - type: CUSTOM_DEPLOYMENT    
-                source: GitHub
-                deploymentName: "GitHub Action"
-                deploymentVersion: "${{ github.ref }}"
-                deploymentProject: "${{ github.repository }}"
-                remediationAction: "None"
-                ciBackLink: "https://github.com/${{ github.repository }}"
-                entities:
-                  - MOBILE_APPLICATION-C061BED4799B41C5
-                dimensions:
-                  project: "${{ github.repository }}"
-                  branch: "${{ github.ref }}"
-                  event: "${{ github.event_name }}"
+              source: GitHub
+              deploymentName: "GitHub Action"
+              deploymentVersion: "${{ github.ref }}"
+              deploymentProject: "${{ github.repository }}"
+              remediationAction: "None"
+              ciBackLink: "https://github.com/${{ github.repository }}"
+              entities:
+                - MOBILE_APPLICATION-C061BED4799B41C5
+              dimensions:
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
                 owner: wolfgang
