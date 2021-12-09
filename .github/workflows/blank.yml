@@ -29,7 +29,7 @@ jobs:
           token: '${{ secrets.DT_TOKEN }}'
           events: |
             - type: CUSTOM_DEPLOYMENT    
-              entitySelector: type(host),tag(test)
+              entitySelector: 'type(host),tag(test)'
               dimensions:
                 project: "${{ github.repository }}"
                 branch: "${{ github.ref }}"
