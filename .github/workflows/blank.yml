@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Inform Dynatrace about a successful build (metric + event)
-        uses: dynatrace-oss/dynatrace-github-action@master
+        uses: dynatrace-oss/dynatrace-github-action@main
         with:
           url: '${{ secrets.DT_URL }}'
           token: '${{ secrets.DT_TOKEN }}'
