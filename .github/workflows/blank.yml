@@ -23,20 +23,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Inform Dynatrace about a successful build (metric + event)
-        uses: dynatrace-oss/dynatrace-github-action@v7
+        uses: dynatrace-oss/dynatrace-github-action@main
         with:
           url: '${{ secrets.DT_URL }}'
           token: '${{ secrets.DT_TOKEN }}'
           events: |
             - type: CUSTOM_DEPLOYMENT    
-              source: GitHub
-              deploymentName: "GitHub Action"
-              deploymentVersion: "${{ github.ref }}"
-              deploymentProject: "${{ github.repository }}"
-              remediationAction: "None"
-              ciBackLink: "https://github.com/${{ github.repository }}"
-              entities:
-                - MOBILE_APPLICATION-C061BED4799B41C5
+              entitySelector: type(host),tag(test)
               dimensions:
                 project: "${{ github.repository }}"
                 branch: "${{ github.ref }}"
