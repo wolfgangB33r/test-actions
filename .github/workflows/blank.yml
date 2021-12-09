@@ -29,8 +29,10 @@ jobs:
           token: '${{ secrets.DT_TOKEN }}'
           events: |
             - type: CUSTOM_DEPLOYMENT    
+              title: Hello World
               entitySelector: type(host),tag(test)
-              dimensions:
+              timeout: 15
+              properties:
                 project: "${{ github.repository }}"
                 branch: "${{ github.ref }}"
                 event: "${{ github.event_name }}"
