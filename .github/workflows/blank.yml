@@ -43,7 +43,7 @@ jobs:
                 event: "${{ github.event_name }}"
                 owner: wolfgang
           events: |
-            - type: CUSTOM_INFO2 
+            - type: CUSTOM_INFO
               title: Hello World
               timeout: 15
               blah: blah
