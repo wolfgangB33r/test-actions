@@ -46,6 +46,8 @@ jobs:
             - type: CUSTOM_INFO    
               title: Hello World
               entitySelector: type(host),tag(test)
+              timeout: 15
+              blah: blah
               properties:
                 project: "${{ github.repository }}"
                 branch: "${{ github.ref }}"
