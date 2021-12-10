@@ -27,6 +27,21 @@ jobs:
         with:
           url: '${{ secrets.DT_URL }}'
           token: '${{ secrets.DT_TOKEN }}'
+          metrics: |
+            - metric: "github.test.metric1"
+              value: "1.0"
+              dimensions:
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
+            - metric: "github.test.metric2"
+              value: "1.0"
+              dimensions:
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
           events: |
             - type: CUSTOM_DEPLOYMENT    
               title: Hello World
