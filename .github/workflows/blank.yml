@@ -46,8 +46,19 @@ jobs:
             - type: CUSTOM_INFO
               title: Hello WorldX
               timeout: 15
+              entitySelector: type(host),tag(test)
               properties:
                 project: "${{ github.repository }}"
                 branch: "${{ github.ref }}"
                 event: "${{ github.event_name }}"
                 owner: wolfgang2
+            - type: CUSTOM_INFO
+              title: "Build failed"
+              entitySelector: type(host),tag(test)
+              properties:
+                description: "Branch ${{ github.ref }} failed to build"
+                source: GitHub
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: ${{ github.repository_owner }}
