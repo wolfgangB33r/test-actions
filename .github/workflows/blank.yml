@@ -43,9 +43,8 @@ jobs:
                 event: "${{ github.event_name }}"
                 owner: wolfgang
           events: |
-            - type: CUSTOM_INFO2    
+            - type: CUSTOM_INFO2 
               title: Hello World
-              entitySelector: type(host),tag(test)
               timeout: 15
               blah: blah
               properties:
