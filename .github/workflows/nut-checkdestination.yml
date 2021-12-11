@@ -1,0 +1,52 @@
+# This workflow sends a deployment event to the CheckDestination Service
+
+name: CheckDestination Deployment
+
+# Controls when the action will run. 
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Inform Dynatrace about a successful build (metric + event)
+        if: ${{ success() }}
+        uses: dynatrace-oss/dynatrace-github-action@v8
+        with:
+          url: '${{ secrets.NUT_DT_URL }}'
+          token: '${{ secrets.NUT_DT_TOKEN }}'
+          metrics: |
+            - metric: "github.build.total"
+              value: "1.0"
+              dimensions:
+                dt.entity.service: SERVICE-907DC3F55716BCC9
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
+            - metric: "github.build.success"
+              value: "1.0"
+              dimensions:
+                dt.entity.service: SERVICE-907DC3F55716BCC9
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
+          events: |
+            - title: "New deployment"
+              type: CUSTOM_Deployment
+              entitySelector: type(service),entityId(SERVICE-907DC3F55716BCC9)
+              properties:
+                source: GitHub
+                description: "GitHub project ${{ github.repository }} was successfully built"
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
