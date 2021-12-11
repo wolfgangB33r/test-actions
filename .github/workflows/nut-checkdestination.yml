@@ -41,7 +41,7 @@ jobs:
                 owner: wolfgang
           events: |
             - title: "New deployment"
-              type: CUSTOM_Deployment
+              type: CUSTOM_DEPLOYMENT
               entitySelector: type(service),entityId(SERVICE-907DC3F55716BCC9)
               properties:
                 source: GitHub
