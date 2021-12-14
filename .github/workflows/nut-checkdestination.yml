@@ -45,6 +45,7 @@ jobs:
           events: |
             - type: CUSTOM_DEPLOYMENT
               entitySelector: type(service),entityId(SERVICE-907DC3F55716BCC9)
+              title: New deployment
               properties:
                 source: GitHub
                 title: New deployment
