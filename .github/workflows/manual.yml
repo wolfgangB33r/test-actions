@@ -9,6 +9,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,7 +25,7 @@ jobs:
     steps:
       - name: Inform Dynatrace about a successful build (metric + event)
         if: ${{ success() }}
-        uses: dynatrace-oss/dynatrace-github-action@v8
+        uses: dynatrace-oss/dynatrace-github-action@v9
         with:
           url: '${{ secrets.DT_URL }}'
           token: '${{ secrets.DT_TOKEN }}'
@@ -56,7 +57,7 @@ jobs:
                 owner: wolfgang
       - name: Inform Dynatrace about a failed build (metric + event)
         if: ${{ failure() }}
-        uses: dynatrace-oss/dynatrace-github-action@v8
+        uses: dynatrace-oss/dynatrace-github-action@v9
         with:
           url: '${{ secrets.DT_URL }}'
           token: '${{ secrets.DT_TOKEN }}'
