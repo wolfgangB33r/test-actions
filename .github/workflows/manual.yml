@@ -64,4 +64,4 @@ jobs:
                 branch: "${{ github.ref }}"
                 event: "${{ github.event_name }}"
                 owner: wolfgang
-                dt.entity.mobile_application: MOBILE_APPLICATION-C061BED4799B41C5
+                dt.source_entity: MOBILE_APPLICATION-C061BED4799B41C5
