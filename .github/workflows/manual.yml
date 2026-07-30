@@ -45,44 +45,12 @@ jobs:
                 event: "${{ github.event_name }}"
                 owner: wolfgang
           events: |
-            - title: "Successful Build"
+            - title: "GitHub Action Test Event"
               type: CUSTOM_INFO
               entitySelector: type(MOBILE_APPLICATION),entityId(MOBILE_APPLICATION-C061BED4799B41C5)
               properties:
                 source: GitHub
                 description: "GitHub project ${{ github.repository }} was successfully built"
-                project: "${{ github.repository }}"
-                branch: "${{ github.ref }}"
-                event: "${{ github.event_name }}"
-                owner: wolfgang
-      - name: Inform Dynatrace about a failed build (metric + event)
-        if: ${{ failure() }}
-        uses: dynatrace-oss/dynatrace-github-action@v9
-        with:
-          url: '${{ secrets.DT_URL }}'
-          token: '${{ secrets.DT_TOKEN }}'
-          metrics: |
-            - metric: "tabshop.github.build.total"
-              value: "1.0"
-              dimensions:
-                project: "${{ github.repository }}"
-                branch: "${{ github.ref }}"
-                event: "${{ github.event_name }}"
-                owner: wolfgang
-            - metric: "tabshop.github.build.fails"
-              value: "1.0"
-              dimensions:
-                project: "${{ github.repository }}"
-                branch: "${{ github.ref }}"
-                event: "${{ github.event_name }}"
-                owner: wolfgang
-          events: |
-            - title: "Failed build"
-              type: CUSTOM_INFO    
-              entitySelector: type(MOBILE_APPLICATION),entityId(MOBILE_APPLICATION-C061BED4799B41C5)
-              properties:
-                description: "GitHub project ${{ github.repository }} build failed!"
-                source: GitHub
                 project: "${{ github.repository }}"
                 branch: "${{ github.ref }}"
                 event: "${{ github.event_name }}"
