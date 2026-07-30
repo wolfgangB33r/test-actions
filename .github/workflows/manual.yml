@@ -55,3 +55,13 @@ jobs:
                 branch: "${{ github.ref }}"
                 event: "${{ github.event_name }}"
                 owner: wolfgang
+            - title: "GitHub Action Test Event Direct Entity Reference"
+              type: CUSTOM_INFO
+              properties:
+                source: GitHub
+                description: "GitHub project ${{ github.repository }} was successfully built"
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
+                dt.entity.mobile_application: MOBILE_APPLICATION-C061BED4799B41C5
