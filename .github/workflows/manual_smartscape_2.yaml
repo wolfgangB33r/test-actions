@@ -27,7 +27,7 @@ jobs:
           events: |
             - title: GitHub Event
               type: CUSTOM_INFO
-              nodeSelectorFilter: 'type=="SERVICE" and name == "astroshop-shipping"'
+              nodeSelectorFilter: 'type=="SERVICE" and name == "my.sim.datagen"'
               properties:
                 source: GitHub
                 description: This is an example
