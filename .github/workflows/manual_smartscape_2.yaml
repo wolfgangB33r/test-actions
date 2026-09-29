@@ -7,45 +7,19 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Inform Dynatrace about a successful build (metric + event)
-        if: ${{ success() }}
-        uses: dynatrace-oss/dynatrace-github-action@v9
+      - name: Send events to Dynatrace
+        uses: dynatrace-oss/dynatrace-github-action
         with:
-          url: '${{ secrets.DT_URL }}'
-          token: '${{ secrets.DT_TOKEN }}'
-          metrics: |
-            - metric: "tabshop.github.build.total"
-              value: "1.0"
-              dimensions:
-                project: "${{ github.repository }}"
-                branch: "${{ github.ref }}"
-                event: "${{ github.event_name }}"
-                owner: wolfgang
-            - metric: "tabshop.github.build.success"
-              value: "1.0"
-              dimensions:
-                project: "${{ github.repository }}"
-                branch: "${{ github.ref }}"
-                event: "${{ github.event_name }}"
-                owner: wolfgang
+          url: ${{ secrets.DT_URL }}
+          token: ${{ secrets.DT_PLATFORM_TOKEN }}
           events: |
-            - title: "GitHub Action Test Event"
+            - title: GitHub Event
               type: CUSTOM_INFO
-              entitySelector: type(MOBILE_APPLICATION),entityId(MOBILE_APPLICATION-C061BED4799B41C5)
+              nodeSelectorFilter: 'type=="SERVICE" and name == "astroshop-shipping"'
               properties:
                 source: GitHub
-                description: "GitHub project ${{ github.repository }} was successfully built"
-                project: "${{ github.repository }}"
-                branch: "${{ github.ref }}"
-                event: "${{ github.event_name }}"
-                owner: wolfgang
-            - title: "GitHub Action Test Event Direct Entity Reference"
-              type: CUSTOM_INFO
-              properties:
-                source: GitHub
-                description: "GitHub project ${{ github.repository }} was successfully built"
-                project: "${{ github.repository }}"
-                branch: "${{ github.ref }}"
-                event: "${{ github.event_name }}"
-                owner: wolfgang
-                dt.source_entity: MOBILE_APPLICATION-C061BED4799B41C5
+                description: This is an example
+                github.repository: "${{ github.repository }}"
+                github.ref: "${{ github.ref }}"
+                github.event_name: "${{ github.event_name }}"
+                github.actor: "${{ github.actor }}"
