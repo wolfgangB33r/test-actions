@@ -1,0 +1,51 @@
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Inform Dynatrace about a successful build (metric + event)
+        if: ${{ success() }}
+        uses: dynatrace-oss/dynatrace-github-action@v9
+        with:
+          url: '${{ secrets.DT_URL }}'
+          token: '${{ secrets.DT_TOKEN }}'
+          metrics: |
+            - metric: "tabshop.github.build.total"
+              value: "1.0"
+              dimensions:
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
+            - metric: "tabshop.github.build.success"
+              value: "1.0"
+              dimensions:
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
+          events: |
+            - title: "GitHub Action Test Event"
+              type: CUSTOM_INFO
+              entitySelector: type(MOBILE_APPLICATION),entityId(MOBILE_APPLICATION-C061BED4799B41C5)
+              properties:
+                source: GitHub
+                description: "GitHub project ${{ github.repository }} was successfully built"
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
+            - title: "GitHub Action Test Event Direct Entity Reference"
+              type: CUSTOM_INFO
+              properties:
+                source: GitHub
+                description: "GitHub project ${{ github.repository }} was successfully built"
+                project: "${{ github.repository }}"
+                branch: "${{ github.ref }}"
+                event: "${{ github.event_name }}"
+                owner: wolfgang
+                dt.source_entity: MOBILE_APPLICATION-C061BED4799B41C5
